@@ -1,0 +1,16 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>assets/power_up.gif</file> 
+    <file>assets/playerback.gif</file>    
+    <file>assets/playerfront.gif</file> 
+    <file>assets/playerleft.gif</file>    
+    <file>assets/playerright.gif</file>    
+    <file>assets/playerleft_1.png</file>
+    <file>assets/playerleft_2.png</file>
+    <file>assets/playerright_1.png</file>
+    <file>assets/playerright_2.png</file>
+</qresource>
+</RCC>
+
+<!-- run the following code to output a resource file -->
+<!-- pyside6-rcc resources.qrc -o resources.py -->

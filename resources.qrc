@@ -1,14 +1,26 @@
 <!DOCTYPE RCC><RCC version="1.0">
 <qresource>
+
     <file>assets/power_up.gif</file> 
+
+    <!-- player gif sprites -->
     <file>assets/playerback.gif</file>    
     <file>assets/playerfront.gif</file> 
     <file>assets/playerleft.gif</file>    
-    <file>assets/playerright.gif</file>    
+    <file>assets/playerright.gif</file>
+
+    <!-- map environment sprites -->
+    <file>assets/tree.gif</file>
+
+    <!-- (unused) player sprites, individual frames -->
     <file>assets/playerleft_1.png</file>
     <file>assets/playerleft_2.png</file>
     <file>assets/playerright_1.png</file>
     <file>assets/playerright_2.png</file>
+
+    <!-- icons -->
+    <file>icon.png</file>
+
 </qresource>
 </RCC>
 

@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QGridLayout, QWidget, QDesktopWidget, QLabel
+from PyQt5.QtWidgets import QApplication, QGridLayout, QWidget, QDesktopWidget, QLabel, QMessageBox
 from PyQt5.QtGui import QIcon, QFont, QPainter, QColor, QMovie, QKeyEvent
 import sys, random
 from PyQt5.QtCore import Qt, QTimer
@@ -9,8 +9,9 @@ clear()
 run = True
 
 class MyWindow(QWidget):
-    x = 0
-    y = 0
+    ''' TODO: DYNAMIC RESIZING; SquareHeight VARIABLE -> FUNCTION '''
+    squareHeight = 64
+
     def __init__(self):
         super().__init__()
         self.initUI()
@@ -20,89 +21,119 @@ class MyWindow(QWidget):
         # QToolTip.setFont(QFont('SansSerif', 10))
         # self.setToolTip('Hi there! <b>bold</b>, <i>italics</i> and <u>underline</u>.')
         
-        self.setFixedSize(1038, 700)
+        # map_features{1:'assets/tree.gif'}
+        self.map_data = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],\
+                         [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],\
+                         [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1],\
+                         [0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1],\
+                         [1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\
+                         [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],\
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1],\
+                         [0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0],\
+                         [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],\
+                         [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],\
+                         [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1]]
+        
+        row_num = 0
+        col_num = 0
+
+        for row in self.map_data:
+            col_num = 0
+            for column in row:
+                if self.map_data[row_num][col_num] == 1:
+                    self.tree_img = QMovie("assets/tree.gif")
+                    self.tree = QLabel(self)
+                    self.tree.setMovie(self.tree_img)
+                    self.tree_img.start()
+                    self.tree_xPos = col_num
+                    self.tree_yPos = row_num
+                    self.tree.setGeometry(self.tree_xPos*self.squareHeight, self.tree_yPos*self.squareHeight, self.squareHeight, self.squareHeight)
+                col_num += 1
+            row_num += 1
+
+        self.worldHeight = row_num
+        self.worldWidth = col_num
+
+        self.setFixedSize(17*self.squareHeight, 11*self.squareHeight)
         self.center()
         
+        self.setStyleSheet("background-color: #b58465;")
         self.setWindowTitle('adventure game')
+        self.setWindowIcon(QIcon('icon.png'))
 
-        self.posX = 100
-        self.posY = 100
-        self.facing = 'left'
-
+        self.last_move = 'left'
         self.player_img = QMovie("assets/playerleft.gif")
         self.player = QLabel(self)
         self.player.setMovie(self.player_img)
         self.player_img.start()
 
-        self.player_xPos = 300
-        self.player_yPos = 300
-        self.player.setGeometry(self.player_xPos, self.player_yPos, 64, 64)
+        self.player_xPos = 8
+        self.player_yPos = 5
+        self.player.setGeometry(self.player_xPos*self.squareHeight, self.player_yPos*self.squareHeight, self.squareHeight, self.squareHeight)
 
-        ''' 'power up' item '''
+        ''' 'power up' item (archive) '''
         # self.power_up_img = QMovie("assets/power_up.gif")
         # self.power_up = QLabel(self)
         # self.power_up.setMovie(self.power_up_img)
         # self.power_up_img.start()
-        #
-        # self.power_up_xPos = 600
-        # self.power_up_yPos = 300
-        # self.power_up.setGeometry(self.power_up_xPos, self.power_up_yPos, 32, 32)
+        
+        # self.power_up_xPos = 5
+        # self.power_up_yPos = 8
+        # self.power_up.setGeometry(self.power_up_xPos*self.squareHeight, self.power_up_yPos*self.squareHeight, self.squareHeight, self.squareHeight)
 
         self.show()
 
     def keyPressEvent(self, e):
         key = e.key()
 
-        if not QKeyEvent.isAutoRepeat(e):
+        if not QKeyEvent.isAutoRepeat(e): # Prevents auto-pressing by holding down a key
             if key == Qt.Key_Left:
-                self.player_xPos -= 32
+                if self.last_move == 'left' and self.player_xPos-1 >= 0 and self.map_data[self.player_yPos][self.player_xPos-1] == 0:
+                    self.player_xPos -= 1
+
+                ''' Changes sprite to face relevant direction '''
                 self.player_img = QMovie("assets/playerleft.gif")
                 self.player.setMovie(self.player_img)
                 self.player_img.start()
+                self.last_move = 'left'
+
 
             elif key == Qt.Key_Right:
-                self.player_xPos += 32
+                if self.last_move == 'right' and self.player_xPos+1 < self.worldWidth and self.map_data[self.player_yPos][self.player_xPos+1] == 0:
+                    self.player_xPos += 1
+
                 self.player_img = QMovie("assets/playerright.gif")
                 self.player.setMovie(self.player_img)
                 self.player_img.start()
+                self.last_move = 'right'
+
 
             elif key == Qt.Key_Up:
-                self.player_yPos -= 32
+                if self.last_move == 'up' and self.player_yPos-1 >= 0 and self.map_data[self.player_yPos-1][self.player_xPos] == 0:
+                    self.player_yPos -= 1
+
                 self.player_img = QMovie("assets/playerback.gif")
                 self.player.setMovie(self.player_img)
                 self.player_img.start()
+                self.last_move = 'up'
+
 
             elif key == Qt.Key_Down:
-                self.player_yPos += 32
+                if self.last_move == 'down' and self.player_yPos+1 < self.worldHeight and self.map_data[self.player_yPos+1][self.player_xPos] == 0:
+                    self.player_yPos += 1
+
                 self.player_img = QMovie("assets/playerfront.gif")
                 self.player.setMovie(self.player_img)
                 self.player_img.start()
+                self.last_move = 'down'
 
             else:
+                ''' handles and ignores all other key presses; prevents crashing '''
                 super(MyWindow, self).keyPressEvent(e)
-
-        ''' for smiley face placeholder '''
-        # if key == Qt.Key_Left:
-        #     self.posX -= 20
-        #     self.facing = 'left'
-
-        # elif key == Qt.Key_Right:
-        #     self.posX += 20
-        #     self.facing = 'right'
-
-        # elif key == Qt.Key_Up:
-        #     self.posY -= 20
-        #     self.facing = 'up'
-
-        # elif key == Qt.Key_Down:
-        #     self.posY += 20
-        #     self.facing = 'down'
-
-        # else:
-        #     super(MyWindow, self).keyPressEvent(e)
         
-        self.player.move(self.player_xPos, self.player_yPos)
+        self.player.move(self.player_xPos*self.squareHeight, self.player_yPos*self.squareHeight)
         self.update()
+
 
     ''' center window on screen '''
     def center(self):
@@ -112,43 +143,18 @@ class MyWindow(QWidget):
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
-    ''' draw placeholder smiley face player sprite '''
-    # def paintEvent(self, e):
-    #     qp = QPainter()
-    #     qp.begin(self)
-
-    #     qp.setBrush(QColor(255, 255, 0))
-    #     qp.drawEllipse(self.posX, self.posY, 60, 60)
-
-    #     qp.setBrush(QColor(0, 0, 0))
-
-    #     if self.facing == 'left':
-    #         qp.drawRect(self.posX+15, self.posY+20, 4, 4)
-    #         qp.drawRect(self.posX+30, self.posY+20, 4, 4)
-    #         qp.drawRect(self.posX+15, self.posY+35, 19, 4)
-    #     if self.facing == 'right':
-    #         qp.drawRect(self.posX+25, self.posY+20, 4, 4)
-    #         qp.drawRect(self.posX+40, self.posY+20, 4, 4)
-    #         qp.drawRect(self.posX+25, self.posY+35, 19, 4)            
-    #     if self.facing == 'up':
-    #         qp.drawRect(self.posX+20, self.posY+10, 4, 4)
-    #         qp.drawRect(self.posX+35, self.posY+10, 4, 4)
-    #         qp.drawRect(self.posX+20, self.posY+25, 19, 4) 
-    #     if self.facing == 'down':
-    #         qp.drawRect(self.posX+20, self.posY+30, 4, 4)
-    #         qp.drawRect(self.posX+35, self.posY+30, 4, 4)
-    #         qp.drawRect(self.posX+20, self.posY+45, 19, 4)         
-    #     qp.end()
-
     ''' close window popup '''
-    # def closeEvent(self, event):
+    def closeEvent(self, event):
 
-    #     choice = QMessageBox.question(self, 'Quit', "Are you sure you want to quit? Your progress will not be saved!", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        choice = QMessageBox.question(self, 'Quit', "Are you sure you want to quit? Your progress will not be saved!", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
 
-    #     if choice == QMessageBox.Yes:
-    #         event.accept()
-    #     else:
-    #         event.ignore()
+        if choice == QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
+
+# class LevelWorld(QWidget, level_num):
+
 
 def main():
 

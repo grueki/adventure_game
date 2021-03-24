@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QGridLayout, QWidget, QDesktopWidget, QLabel, QMessageBox
 from PyQt5.QtGui import QIcon, QFont, QPainter, QColor, QMovie, QKeyEvent
 import sys, random
-from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtCore import Qt, QTimer, QPropertyAnimation, QPoint, QEasingCurve
 import sys, os, resources
 
 clear = lambda: os.system('cls')
@@ -131,7 +131,13 @@ class MyWindow(QWidget):
                 ''' handles and ignores all other key presses; prevents crashing '''
                 super(MyWindow, self).keyPressEvent(e)
         
-        self.player.move(self.player_xPos*self.squareHeight, self.player_yPos*self.squareHeight)
+        self.anim = QPropertyAnimation(self.player, b"pos")
+        self.anim.setEasingCurve(QEasingCurve.InOutQuad)
+        self.anim.setEndValue(QPoint(self.player_xPos*self.squareHeight, self.player_yPos*self.squareHeight))
+        self.anim.setDuration(200)
+        self.anim.start()
+
+        # self.player.move(self.player_xPos*self.squareHeight, self.player_yPos*self.squareHeight)
         self.update()
 
 

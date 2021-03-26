@@ -40,26 +40,8 @@ class MyWindow(QWidget):
                          [1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1],\
                          [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0],\
                          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0]]
-        
-        row_num = 0
-        col_num = 0
 
-        for row in self.map_data:
-            col_num = 0
-            for column in row:
-                if self.map_data[row_num][col_num] == 1:
-                    self.tree_img = QMovie("assets/tree.gif")
-                    self.tree = QLabel(self)
-                    self.tree.setMovie(self.tree_img)
-                    self.tree_img.start()
-                    self.tree_xPos = col_num
-                    self.tree_yPos = row_num
-                    self.tree.setGeometry(self.tree_xPos*self.squareHeight, self.tree_yPos*self.squareHeight, self.squareHeight, self.squareHeight)
-                col_num += 1
-            row_num += 1
-
-        self.worldHeight = row_num
-        self.worldWidth = col_num
+        self.load_map(0, 0)
 
         self.setFixedSize(17*self.squareHeight, 11*self.squareHeight)
         self.center()
@@ -147,6 +129,27 @@ class MyWindow(QWidget):
         # self.player.move(self.player_xPos*self.squareHeight, self.player_yPos*self.squareHeight)
         self.update()
 
+
+    def load_map(self, x_origin, y_origin):
+        row_num = 0
+        col_num = 0
+
+        for row in self.map_data:
+            col_num = x_origin
+            for column in row:
+                if self.map_data[row_num][col_num] == 1:
+                    self.tree_img = QMovie("assets/tree.gif")
+                    self.tree = QLabel(self)
+                    self.tree.setMovie(self.tree_img)
+                    self.tree_img.start()
+                    self.tree_xPos = col_num
+                    self.tree_yPos = row_num
+                    self.tree.setGeometry(self.tree_xPos*self.squareHeight, self.tree_yPos*self.squareHeight, self.squareHeight, self.squareHeight)
+                col_num += 1
+            row_num += 1
+
+        self.worldHeight = row_num
+        self.worldWidth = col_num
 
     ''' center window on screen '''
     def center(self):

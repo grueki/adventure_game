@@ -22,17 +22,24 @@ class MyWindow(QWidget):
         # self.setToolTip('Hi there! <b>bold</b>, <i>italics</i> and <u>underline</u>.')
         
         # map_features{1:'assets/tree.gif'}
-        self.map_data = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],\
-                         [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],\
-                         [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1],\
-                         [0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1],\
-                         [1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],\
-                         [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],\
-                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1],\
-                         [0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0],\
-                         [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],\
-                         [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],\
-                         [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1]]
+        self.map_data = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0],\
+                         [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0],\
+                         [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],\
+                         [0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1],\
+                         [1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1],\
+                         [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0],\
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0],\
+                         [0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1],\
+                         [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],\
+                         [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1],\
+                         [1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0],\
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0],\
+                         [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0],\
+                         [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],\
+                         [0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1],\
+                         [1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1],\
+                         [0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0],\
+                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 0]]
         
         row_num = 0
         col_num = 0
@@ -86,50 +93,50 @@ class MyWindow(QWidget):
     def keyPressEvent(self, e):
         key = e.key()
 
-        if not QKeyEvent.isAutoRepeat(e): # Prevents auto-pressing by holding down a key
-            if key == Qt.Key_Left:
-                if self.last_move == 'left' and self.player_xPos-1 >= 0 and self.map_data[self.player_yPos][self.player_xPos-1] == 0:
-                    self.player_xPos -= 1
+        #if not QKeyEvent.isAutoRepeat(e): # Prevents auto-pressing by holding down a key
+        if key == Qt.Key_Left:
+            if self.last_move == 'left' and self.player_xPos-1 >= 0 and self.map_data[self.player_yPos][self.player_xPos-1] == 0:
+                self.player_xPos -= 1
 
-                ''' Changes sprite to face relevant direction '''
-                self.player_img = QMovie("assets/playerleft.gif")
-                self.player.setMovie(self.player_img)
-                self.player_img.start()
-                self.last_move = 'left'
-
-
-            elif key == Qt.Key_Right:
-                if self.last_move == 'right' and self.player_xPos+1 < self.worldWidth and self.map_data[self.player_yPos][self.player_xPos+1] == 0:
-                    self.player_xPos += 1
-
-                self.player_img = QMovie("assets/playerright.gif")
-                self.player.setMovie(self.player_img)
-                self.player_img.start()
-                self.last_move = 'right'
+            ''' Changes sprite to face relevant direction '''
+            self.player_img = QMovie("assets/playerleft.gif")
+            self.player.setMovie(self.player_img)
+            self.player_img.start()
+            self.last_move = 'left'
 
 
-            elif key == Qt.Key_Up:
-                if self.last_move == 'up' and self.player_yPos-1 >= 0 and self.map_data[self.player_yPos-1][self.player_xPos] == 0:
-                    self.player_yPos -= 1
+        elif key == Qt.Key_Right:
+            if self.last_move == 'right' and self.player_xPos+1 < self.worldWidth and self.map_data[self.player_yPos][self.player_xPos+1] == 0:
+                self.player_xPos += 1
 
-                self.player_img = QMovie("assets/playerback.gif")
-                self.player.setMovie(self.player_img)
-                self.player_img.start()
-                self.last_move = 'up'
+            self.player_img = QMovie("assets/playerright.gif")
+            self.player.setMovie(self.player_img)
+            self.player_img.start()
+            self.last_move = 'right'
 
 
-            elif key == Qt.Key_Down:
-                if self.last_move == 'down' and self.player_yPos+1 < self.worldHeight and self.map_data[self.player_yPos+1][self.player_xPos] == 0:
-                    self.player_yPos += 1
+        elif key == Qt.Key_Up:
+            if self.last_move == 'up' and self.player_yPos-1 >= 0 and self.map_data[self.player_yPos-1][self.player_xPos] == 0:
+                self.player_yPos -= 1
 
-                self.player_img = QMovie("assets/playerfront.gif")
-                self.player.setMovie(self.player_img)
-                self.player_img.start()
-                self.last_move = 'down'
+            self.player_img = QMovie("assets/playerback.gif")
+            self.player.setMovie(self.player_img)
+            self.player_img.start()
+            self.last_move = 'up'
 
-            else:
-                ''' handles and ignores all other key presses; prevents crashing '''
-                super(MyWindow, self).keyPressEvent(e)
+
+        elif key == Qt.Key_Down:
+            if self.last_move == 'down' and self.player_yPos+1 < self.worldHeight and self.map_data[self.player_yPos+1][self.player_xPos] == 0:
+                self.player_yPos += 1
+
+            self.player_img = QMovie("assets/playerfront.gif")
+            self.player.setMovie(self.player_img)
+            self.player_img.start()
+            self.last_move = 'down'
+
+        else:
+            ''' handles and ignores all other key presses; prevents crashing '''
+            super(MyWindow, self).keyPressEvent(e)
         
         self.anim = QPropertyAnimation(self.player, b"pos")
         self.anim.setEasingCurve(QEasingCurve.InOutQuad)
